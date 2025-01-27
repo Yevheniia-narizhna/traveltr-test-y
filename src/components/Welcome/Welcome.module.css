@@ -7,7 +7,29 @@
   background-position: center;
   margin-top: 72px;
 }
-
+.contText {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  padding-left: 64px;
+  padding-top: 260px;
+}
+.title {
+  padding-bottom: 8px;
+}
+.textWelcome {
+  padding-bottom: 40px;
+  font-size: 24px;
+  font-weight: 600;
+}
+.btnCatalog {
+  width: 173px;
+  height: 56px;
+  border-radius: 30px;
+  background-color: #e44848;
+  color: #ffffff;
+  border: none;
+}
 /* @media screen and (min-width: 1440px) {
   .welcomeCont {
     height: 100vh;
