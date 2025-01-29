@@ -7,10 +7,20 @@ export const campersApi = axios.create({
 
 export const fetchCampers = createAsyncThunk(
   "fetchCampers",
-  async (filters, thunkApi) => {
+  async (_, { getState }, thunkApi) => {
     try {
-      const { data } = await campersApi.get("/campers", { params: filters });
-      return data;
+      const { filters } = getState().campers;
+      const params = {
+        ...(filters.location && { location: filters.location }),
+        ...(filters.form && { form: filters.form }),
+        ...filters.features.reduce((acc, feature) => {
+          acc[feature] = true;
+          return acc;
+        }, {}),
+      };
+
+      const { data } = await campersApi.get("/campers", { params });
+      return data.items;
     } catch (error) {
       return thunkApi.rejectWithValue(
         error.message || "Failed to fetch campers"

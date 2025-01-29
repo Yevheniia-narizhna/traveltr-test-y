@@ -9,15 +9,15 @@ const campersSlice = createSlice({
       features: [],
       form: "",
     },
-    items: [],
+    campers: [],
     loading: false,
   },
   reducers: {
     setFilter: (state, action) => {
       const { name, value } = action.payload;
+
       if (name === "features") {
-        const isSelected = state.filters.features.includes(value);
-        state.filters.features = isSelected
+        state.filters.features = state.filters.features.includes(value)
           ? state.filters.features.filter((feature) => feature !== value)
           : [...state.filters.features, value];
       } else {
@@ -31,7 +31,7 @@ const campersSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchCampers.fulfilled, (state, action) => {
-        state.items = action.payload;
+        state.campers = action.payload.items;
         state.loading = false;
       })
       .addCase(fetchCampers.rejected, (state) => {

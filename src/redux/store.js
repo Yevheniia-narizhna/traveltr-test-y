@@ -3,7 +3,7 @@ import { campersReducer } from "./campers/slice";
 
 const store = configureStore({
   reducer: {
-    items: campersReducer,
+    campers: campersReducer,
   },
 });
 
