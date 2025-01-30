@@ -6,13 +6,11 @@ const campersSlice = createSlice({
   initialState: {
     filters: {
       location: "",
-      features: {
-        AC: true,
-        bathroom: true,
-        kitchen: false,
-        TV: true,
-        transmission: "",
-      },
+      AC: true,
+      bathroom: true,
+      kitchen: false,
+      TV: true,
+      transmission: "",
       form: "",
     },
     campers: [],
@@ -22,6 +20,7 @@ const campersSlice = createSlice({
     //
     setFilter: (state, action) => {
       const { name, value } = action.payload;
+      console.log(`setFilter called: ${name} = ${value}`);
       if (name === "form") {
         state.filters.form = value;
       } else if (name === "location") {
@@ -29,6 +28,7 @@ const campersSlice = createSlice({
       } else if (name in state.filters) {
         state.filters[name] = value;
       }
+      console.log("Updated filters:", state.filters);
     },
   },
   extraReducers: (builder) => {

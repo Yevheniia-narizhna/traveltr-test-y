@@ -5,66 +5,20 @@ import Campers from "../Campers/Campers";
 import s from "./CampersList.module.css";
 
 const CampersList = () => {
-  const { campers, filters } = useSelector((state) => state.campers);
+  const { campers } = useSelector((state) => state.campers);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCampers(filters));
-  }, [dispatch, filters]);
+    dispatch(fetchCampers());
+  }, [dispatch]);
 
-  const isFiltering =
-    filters.AC ||
-    filters.kitchen ||
-    filters.TV ||
-    filters.bathroom ||
-    filters.transmission ||
-    filters.form ||
-    filters.location;
-
-  //   const selectedFeatures = Object.entries(filters.features)
-  //     .filter(([_, value]) => value)
-  //     .map(([key]) => key);
-
-  //   console.log("Selected Features:", selectedFeatures);
-
-  const filteredCampers = isFiltering
-    ? campers.filter((camper) => {
-        // Перевірка кожної властивості в фільтрах
-        if (filters.location && !camper.location.includes(filters.location)) {
-          return false; // Якщо локація не співпадає, пропускаємо цей кемпер
-        }
-        if (filters.form && camper.form !== filters.form) {
-          return false; // Якщо форма не співпадає, пропускаємо цей кемпер
-        }
-        if (filters.AC && camper.AC !== filters.AC) {
-          return false; // Якщо AC не співпадає, пропускаємо цей кемпер
-        }
-        if (filters.bathroom && camper.bathroom !== filters.bathroom) {
-          return false; // Якщо bathroom не співпадає, пропускаємо цей кемпер
-        }
-        if (filters.kitchen && camper.kitchen !== filters.kitchen) {
-          return false; // Якщо kitchen не співпадає, пропускаємо цей кемпер
-        }
-        if (filters.TV && camper.TV !== filters.TV) {
-          return false; // Якщо TV не співпадає, пропускаємо цей кемпер
-        }
-        if (
-          filters.transmission &&
-          camper.transmission !== filters.transmission
-        ) {
-          return false; // Якщо transmission не співпадає, пропускаємо цей кемпер
-        }
-        return true; // Якщо всі фільтри пройдені, включаємо цей кемпер
-      })
-    : campers;
-
-  console.log("Filtered campers:", filteredCampers);
+  console.log("Campers from API:", campers);
 
   return (
     <div>
       <div>
         <ul className={s.campertlist}>
-          {filteredCampers.map((camper) => (
+          {campers.map((camper) => (
             <li key={camper.id}>
               <Campers
                 name={camper.name}

@@ -11,17 +11,38 @@ export const fetchCampers = createAsyncThunk(
     try {
       const { filters } = getState().campers;
       console.log("Current filters before request:", filters);
-      const params = {
-        ...(filters.location && { location: filters.location }),
-        ...(filters.form && { form: filters.form }),
-        ...Object.entries(filters.features).reduce((acc, [key, value]) => {
-          if (value) acc[key] = value;
-          return acc;
-        }, {}),
-      };
+
+      // Формуємо параметри запиту
+      const params = {};
+
+      if (filters.location) {
+        params.location = encodeURIComponent(filters.location.trim());
+      }
+      if (filters.form) {
+        params.form = filters.form;
+      }
+      if (filters.transmission) {
+        params.transmission = filters.transmission;
+      }
+      if (filters.AC) {
+        params.AC = filters.AC;
+      }
+      if (filters.bathroom) {
+        params.bathroom = filters.bathroom;
+      }
+      if (filters.kitchen) {
+        params.kitchen = filters.kitchen;
+      }
+      if (filters.TV) {
+        params.TV = filters.TV;
+      }
+
       console.log("Final request params:", params);
+
       const { data } = await campersApi.get("/campers", { params });
-      console.log("Fetched campers:", data.items);
+
+      console.log("Fetched campers:", data);
+
       return data.items;
     } catch (error) {
       console.error("Error fetching campers:", error);

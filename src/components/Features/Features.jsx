@@ -6,6 +6,7 @@ import { fetchCampers } from "../../redux/campers/operations.js";
 const Features = () => {
   const dispatch = useDispatch();
   const filters = useSelector((state) => state.campers.filters);
+  console.log("Filters from Redux:", filters);
 
   const handleFeatureChange = (featureName, featureValue) => {
     dispatch(
@@ -21,12 +22,14 @@ const Features = () => {
   };
 
   const handleLocationChange = (e) => {
-    dispatch(setFilter({ name: "location", value: e.target.value }));
+    const value = e.target.value;
+    console.log("Location input changed:", value);
+    dispatch(setFilter({ name: "location", value }));
   };
 
   const searchCamp = () => {
     console.log("Current filters:", filters);
-    dispatch(fetchCampers(filters));
+    dispatch(fetchCampers());
   };
 
   return (
