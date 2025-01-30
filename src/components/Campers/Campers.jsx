@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import s from "./Campers.module.css";
 import { useSelector } from "react-redux";
 import FilterIcons from "./FilterIcons";
+import { Link } from "react-router-dom";
 
 const Campers = ({
   id,
@@ -11,8 +12,8 @@ const Campers = ({
   gallery,
   rating,
   location,
-  onClick,
 }) => {
+  console.log(id);
   const filters = useSelector((state) => state.campers.filters);
 
   const swapLocation = (location) => {
@@ -93,9 +94,10 @@ const Campers = ({
         </div>
         <TruncateText text={description} maxWidth={maxWidth} />
         <FilterIcons filters={filters} />
-        <button className={s.btnShow} onClick={() => onClick(id)}>
-          Show more
-        </button>
+
+        <Link to={`/catalog/${id}`}>
+          <button className={s.btnShow}>Show more</button>
+        </Link>
       </div>
     </div>
   );

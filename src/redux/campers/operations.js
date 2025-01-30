@@ -57,7 +57,7 @@ export const fetchCampersById = createAsyncThunk(
   async (id, thunkApi) => {
     try {
       const { data } = await campersApi.get(`/campers/${id}`);
-      return data.id;
+      return data;
     } catch (error) {
       return thunkApi.rejectWithValue(
         error.message || "Failed to fetch camper details"

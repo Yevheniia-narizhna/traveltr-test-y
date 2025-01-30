@@ -7,7 +7,7 @@ const Header = () => {
       <img className={s.iconLogo} src="/logo.svg" alt="Logo" />
       <div className={s.navigation}>
         <NavLink to="/">Home</NavLink>
-        <NavLink to="/campers">Catalog</NavLink>
+        <NavLink to="/catalog">Catalog</NavLink>
       </div>
     </div>
   );

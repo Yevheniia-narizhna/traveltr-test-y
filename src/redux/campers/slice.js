@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCampers } from "./operations";
+import { fetchCampers, fetchCampersById } from "./operations";
 
 const campersSlice = createSlice({
   name: "campers",
   initialState: {
     filters: {
+      id: "",
       location: "",
       AC: false,
       bathroom: false,
@@ -20,6 +21,7 @@ const campersSlice = createSlice({
       radio: false,
     },
     campers: [],
+    oneCamper: null,
     loading: false,
   },
   reducers: {
@@ -47,6 +49,16 @@ const campersSlice = createSlice({
         state.loading = false;
       })
       .addCase(fetchCampers.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(fetchCampersById.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchCampersById.fulfilled, (state, action) => {
+        state.oneCamper = action.payload;
+        state.loading = false;
+      })
+      .addCase(fetchCampersById.rejected, (state) => {
         state.loading = false;
       });
   },
