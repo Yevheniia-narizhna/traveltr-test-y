@@ -6,10 +6,10 @@ const campersSlice = createSlice({
   initialState: {
     filters: {
       location: "",
-      AC: true,
-      bathroom: true,
+      AC: false,
+      bathroom: false,
       kitchen: false,
-      TV: true,
+      TV: false,
       transmission: "",
       form: "",
     },
