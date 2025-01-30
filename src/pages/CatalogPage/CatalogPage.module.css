@@ -1,0 +1,10 @@
+.catalog {
+  display: flex;
+  margin-top: 120px;
+}
+.features {
+  width: 360px;
+}
+.camperslist {
+  width: 888px;
+}

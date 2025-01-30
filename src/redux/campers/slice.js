@@ -6,22 +6,28 @@ const campersSlice = createSlice({
   initialState: {
     filters: {
       location: "",
-      features: [],
+      features: {
+        AC: true,
+        bathroom: true,
+        kitchen: false,
+        TV: true,
+        transmission: "",
+      },
       form: "",
     },
     campers: [],
     loading: false,
   },
   reducers: {
+    //
     setFilter: (state, action) => {
       const { name, value } = action.payload;
-
-      if (name === "features") {
-        state.filters.features = state.filters.features.includes(value)
-          ? state.filters.features.filter((feature) => feature !== value)
-          : [...state.filters.features, value];
-      } else {
-        state.filters[name] = value; // location, form
+      if (name === "form") {
+        state.filters.form = value;
+      } else if (name === "location") {
+        state.filters.location = value;
+      } else if (name in state.filters) {
+        state.filters[name] = value;
       }
     },
   },
@@ -31,7 +37,7 @@ const campersSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchCampers.fulfilled, (state, action) => {
-        state.campers = action.payload.items;
+        state.campers = action.payload;
         state.loading = false;
       })
       .addCase(fetchCampers.rejected, (state) => {

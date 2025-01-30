@@ -1,0 +1,27 @@
+.icon {
+  width: 20px;
+  height: 20px;
+}
+.inputWrapp {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input {
+  width: 360px;
+  height: 56px;
+  text-indent: 46px;
+  font-size: 16px;
+  border-radius: 12px;
+}
+.icon {
+  position: absolute;
+  left: 18px;
+  width: 20px;
+  height: 20px;
+  fill: #6c717b;
+}
+.label {
+  display: block;
+  text-align: left;
+}

@@ -10,18 +10,21 @@ export const fetchCampers = createAsyncThunk(
   async (_, { getState }, thunkApi) => {
     try {
       const { filters } = getState().campers;
+      console.log("Current filters before request:", filters);
       const params = {
         ...(filters.location && { location: filters.location }),
         ...(filters.form && { form: filters.form }),
-        ...filters.features.reduce((acc, feature) => {
-          acc[feature] = true;
+        ...Object.entries(filters.features).reduce((acc, [key, value]) => {
+          if (value) acc[key] = value;
           return acc;
         }, {}),
       };
-
+      console.log("Final request params:", params);
       const { data } = await campersApi.get("/campers", { params });
+      console.log("Fetched campers:", data.items);
       return data.items;
     } catch (error) {
+      console.error("Error fetching campers:", error);
       return thunkApi.rejectWithValue(
         error.message || "Failed to fetch campers"
       );
