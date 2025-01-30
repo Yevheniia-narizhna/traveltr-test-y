@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import s from "./Campers.module.css";
+import { useSelector } from "react-redux";
+import FilterIcons from "./FilterIcons";
 
 const Campers = ({
   id,
@@ -9,9 +11,10 @@ const Campers = ({
   gallery,
   rating,
   location,
-  features = [],
   onClick,
 }) => {
+  const filters = useSelector((state) => state.campers.filters);
+
   const swapLocation = (location) => {
     const parts = location.split(", ");
     if (parts.length === 2) {
@@ -74,21 +77,24 @@ const Campers = ({
             </svg>
           </div>
         </div>
-        <p>{rating}</p>
-        <p>
-          <svg className={s.icon}>
-            <use href="sprite.svg#icon-Map"></use>
-          </svg>
-          {swappedLocation}
-        </p>
+        <div className={s.ratingLocation}>
+          <div className={s.rating}>
+            <svg className={s.iconStar}>
+              <use href="sprite.svg#icon-Property-1Pressed"></use>
+            </svg>
+            {rating} (2 Reviews)
+          </div>
+          <div className={s.location}>
+            <svg className={s.icon}>
+              <use href="sprite.svg#icon-Map"></use>
+            </svg>
+            {swappedLocation}
+          </div>
+        </div>
         <TruncateText text={description} maxWidth={maxWidth} />
-        <ul>
-          {features.map((feature) => (
-            <li key={feature}>{feature}</li>
-          ))}
-        </ul>
+        <FilterIcons filters={filters} />
         <button className={s.btnShow} onClick={() => onClick(id)}>
-          Show more{" "}
+          Show more
         </button>
       </div>
     </div>
