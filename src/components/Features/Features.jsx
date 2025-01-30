@@ -54,16 +54,16 @@ const Features = () => {
         <h2 className={s.equipmentTitle}>Vehicle equipment</h2>
         <div className={s.filterWrap}>
           {[
-            { name: "AC", label: "AC", icon: "icon-AC" },
+            { name: "AC", label: "AC", icon: "icon-wind" },
 
             {
               name: "transmission",
               label: "Automatic",
-              icon: "icon-Automatic",
+              icon: "icon-diagram",
             },
-            { name: "kitchen", label: "Kitchen", icon: "icon-Kitchen" },
-            { name: "TV", label: "TV", icon: "icon-TV" },
-            { name: "bathroom", label: "Bathroom", icon: "icon-Bathroom" },
+            { name: "kitchen", label: "Kitchen", icon: "icon-cup-hot" },
+            { name: "TV", label: "TV", icon: "icon-tv" },
+            { name: "bathroom", label: "Bathroom", icon: "icon-ph_shower" },
           ].map((filter) => (
             <div
               key={filter.name}
@@ -74,10 +74,10 @@ const Features = () => {
                 handleFeatureChange(filter.name, !filters[filter.name])
               }
             >
-              <svg className={s.icon}>
+              <svg className={s.iconFiltr}>
                 <use href={`sprite.svg#${filter.icon}`}></use>
               </svg>
-              <label>{filter.label}</label>
+              <label className={s.labelFiltr}>{filter.label}</label>
 
               {filter.name === "transmission" ? (
                 <input
@@ -104,17 +104,16 @@ const Features = () => {
           ))}
         </div>
 
-        {/* Тип кузова */}
         <h2 className={s.typeTitle}>Vehicle Type</h2>
         <div className={s.filterGroup}>
           {[
-            { value: "panelTruck", label: "Van", icon: "icon-Van" },
+            { value: "panelTruck", label: "Van", icon: "icon-bi_grid-1x2" },
             {
               value: "fullyIntegrated",
               label: "Fully Integrated",
-              icon: "icon-Full",
+              icon: "icon-bi_grid",
             },
-            { value: "alcove", label: "Alcove", icon: "icon-Alcove" },
+            { value: "alcove", label: "Alcove", icon: "icon-bi_grid-3x3-gap" },
           ].map((type) => (
             <div
               key={type.value}
@@ -123,10 +122,10 @@ const Features = () => {
               }`}
               onClick={() => handleFormChange(type.value)}
             >
-              <svg className={s.icon}>
+              <svg className={s.iconFiltr}>
                 <use href={`sprite.svg#${type.icon}`}></use>
               </svg>
-              <label>{type.label}</label>
+              <label className={s.labelFiltr}>{type.label}</label>
             </div>
           ))}
         </div>

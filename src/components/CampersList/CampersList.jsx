@@ -25,6 +25,7 @@ const CampersList = () => {
                 price={camper.price}
                 gallery={camper.gallery}
                 rating={camper.rating}
+                description={camper.description}
                 location={camper.location}
                 features={camper.features}
                 onClick={() => dispatch(fetchCampersById(camper.id))}

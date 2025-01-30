@@ -12,7 +12,6 @@ export const fetchCampers = createAsyncThunk(
       const { filters } = getState().campers;
       console.log("Current filters before request:", filters);
 
-      // Формуємо параметри запиту
       const params = {};
 
       if (filters.location) {

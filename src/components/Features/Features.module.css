@@ -4,10 +4,6 @@
   justify-content: flex-start;
 }
 
-.icon {
-  width: 20px;
-  height: 20px;
-}
 .inputWrapp {
   position: relative;
   display: flex;
@@ -19,6 +15,9 @@
   text-indent: 46px;
   font-size: 16px;
   border-radius: 12px;
+  border: none;
+  background-color: #f7f7f7;
+  outline: none;
 }
 .icon {
   position: absolute;
@@ -27,13 +26,16 @@
   height: 20px;
   fill: #6c717b;
 }
+
+.inputWrapp:focus-within .icon,
+.input:not(:placeholder-shown) ~ .icon {
+  fill: #101828;
+}
 .label {
   display: block;
   text-align: left;
 }
 .title {
-  font-size: 16px;
-  font-weight: 500;
   text-align: left;
   padding-top: 40px;
 }
@@ -45,8 +47,18 @@
   row-gap: 8px;
   column-gap: 12px;
 }
+.iconFiltr {
+  max-height: 32px;
+  width: 32px;
+  fill: #101828;
+}
+/* .labelFiltr {
+  color: #101828;
+} */
 .filterBox {
   display: flex;
+  flex-direction: column;
+  gap: 8px;
   align-items: center;
   justify-content: center;
   width: 110px;
@@ -54,7 +66,6 @@
   border: 1px solid #dadde1;
   border-radius: 12px;
   cursor: pointer;
-  background-color: gray;
   transition: background-color 0.3s ease;
   text-align: center;
 }

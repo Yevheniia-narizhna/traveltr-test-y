@@ -1,3 +1,11 @@
+.contCamper {
+  display: flex;
+  gap: 24px;
+  border: 1px solid #dadde1;
+  border-radius: 20px;
+  padding: 24px;
+}
+
 .image {
   width: 292px;
   height: 320px;
@@ -5,3 +13,50 @@
   object-fit: cover;
   object-position: center;
 }
+.icon {
+  width: 16px;
+  height: 16px;
+  padding-right: 4px;
+}
+.contCamperText {
+  display: flex;
+  flex-direction: column;
+  min-width: 524px;
+}
+.contNamePrice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+/* .name {
+  max-width: 340px;
+} */
+.price {
+  font-size: 24px;
+  font-weight: 600;
+}
+.miniCont {
+  display: flex;
+  gap: 12px;
+}
+.iconFav {
+  width: 26px;
+  height: 24px;
+  padding-top: 4px;
+}
+.btnShow {
+  width: 166px;
+  height: 56px;
+  border-radius: 30px;
+  background-color: #e44848;
+  color: #ffffff;
+  border: none;
+  font-size: 16px;
+  margin-top: 24px;
+}
+/* .text {
+  width: 525px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} */
