@@ -28,6 +28,7 @@ const CampersList = () => {
                 rating={camper.rating}
                 description={camper.description}
                 location={camper.location}
+                reviewsCount={camper.reviews ? camper.reviews.length : 0}
                 // features={camper.features}
                 // onClick={() => dispatch(fetchCampersById(camper.id))}
               />

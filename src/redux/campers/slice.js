@@ -11,7 +11,7 @@ const campersSlice = createSlice({
       bathroom: false,
       kitchen: false,
       TV: false,
-      transmission: "automatic",
+      transmission: "",
       form: "",
       gas: false,
       microwave: false,

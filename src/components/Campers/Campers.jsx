@@ -12,6 +12,7 @@ const Campers = ({
   gallery,
   rating,
   location,
+  reviewsCount,
 }) => {
   console.log(id);
   const filters = useSelector((state) => state.campers.filters);
@@ -83,7 +84,7 @@ const Campers = ({
             <svg className={s.iconStar}>
               <use href="sprite.svg#icon-Property-1Pressed"></use>
             </svg>
-            {rating} (2 Reviews)
+            {rating} ({reviewsCount} Reviews)
           </div>
           <div className={s.location}>
             <svg className={s.icon}>

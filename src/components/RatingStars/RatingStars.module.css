@@ -1,0 +1,14 @@
+.contStars {
+  display: flex;
+}
+.iconFull {
+  fill: #ffc531;
+}
+.iconEmpty {
+  fill: #f2f4f7;
+}
+.iconFull,
+.iconEmpty {
+  width: 16px;
+  height: 16px;
+}
