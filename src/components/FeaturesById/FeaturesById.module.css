@@ -1,0 +1,16 @@
+.contFeatById {
+  width: 631px;
+  display: flex;
+  flex-direction: column;
+}
+.vehicle {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.vehicleValue {
+  width: 631px;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 16px;
+}

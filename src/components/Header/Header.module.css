@@ -14,10 +14,17 @@
   height: 16px;
   padding-left: 64px;
 }
+
 .navigation {
   padding-left: 450px;
   display: flex;
   gap: 32px;
+}
+.active {
+  color: #d84343;
+}
+.inactive {
+  color: #101828;
 }
 
 @media screen and (min-width: 1440px) {

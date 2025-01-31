@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import s from "./Campers.module.css";
 import { useSelector } from "react-redux";
-import FilterIcons from "./FilterIcons";
+
 import { Link } from "react-router-dom";
+import FilterIcons from "../FilterIcons/FilterIcons";
 
 const Campers = ({
   id,
@@ -73,7 +74,7 @@ const Campers = ({
         <div className={s.contNamePrice}>
           <h2 className={s.name}>Campers {name}</h2>
           <div className={s.miniCont}>
-            <p className={s.price}>{price ? price.toFixed(2) : "0.00"} €</p>
+            <p className={s.price}>€{price ? price.toFixed(2) : "0.00"}</p>
             <svg className={s.iconFav}>
               <use href="sprite.svg#icon-Property-1Default"></use>
             </svg>
@@ -94,7 +95,7 @@ const Campers = ({
           </div>
         </div>
         <TruncateText text={description} maxWidth={maxWidth} />
-        <FilterIcons filters={filters} />
+        <FilterIcons filters={filters} limit={4} />
 
         <Link to={`/catalog/${id}`}>
           <button className={s.btnShow}>Show more</button>

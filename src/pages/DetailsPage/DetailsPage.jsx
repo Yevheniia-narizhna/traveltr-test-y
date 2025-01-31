@@ -1,8 +1,9 @@
 import DetailsCamper from "../../components/DetailsCamper/DetailsCamper";
+import s from "./DetailsPage.module.css";
 
 const DetailsPage = () => {
   return (
-    <div>
+    <div className={s.contDetailPage}>
       <DetailsCamper />
     </div>
   );

@@ -1,3 +1,71 @@
-.contDetail {
+/* .contDetail {
   margin-top: 120px;
+} */
+.icon {
+  width: 16px;
+  height: 16px;
+  padding-right: 4px;
+}
+.iconStar {
+  width: 18px;
+  height: 18px;
+  fill: #ffc531;
+}
+.galleryContainer {
+  display: flex;
+  width: 1312px;
+  justify-content: center;
+  gap: 48px;
+}
+
+.image {
+  width: 292px;
+  height: 312px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s;
+  border-radius: 10px;
+}
+
+.image:hover {
+  transform: scale(1.1);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  position: relative;
+  background: #fff;
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.modalImage {
+  max-width: 100%;
+  max-height: 80vh;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+.contFeReForm {
+  display: flex;
 }

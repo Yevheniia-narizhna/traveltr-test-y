@@ -1,0 +1,38 @@
+.contBooking {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 641px;
+  padding: 44px 57px;
+}
+.formCont {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 16px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.input {
+  border-radius: 12px;
+  width: 527px;
+  padding: 18px;
+  border: none;
+  background-color: #f7f7f7;
+}
+.btnSubmit {
+  color: #ffffff;
+  width: 166px;
+  height: 56px;
+  background-color: #e44848;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0 auto;
+}
