@@ -6,6 +6,7 @@ import Header from "./components/Header/Header";
 import DetailsPage from "./pages/DetailsPage/DetailsPage";
 import FeaturesById from "./components/FeaturesById/FeaturesById";
 import Reviews from "./components/Reviews/Reviews";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         </Route>
         {/* <Route path="*" element={<NotFoundPage />} /> */}
       </Routes>
+      <ToastContainer position="top-right" autoClose={3000} />
     </>
   );
 }

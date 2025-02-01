@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchCampersById } from "../../redux/campers/operations.js";
 import s from "./FeaturesById.module.css";
+import { selectFilters } from "../../redux/campers/selectors.js";
 
 const FeaturesById = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const FeaturesById = () => {
     dispatch(fetchCampersById(id));
   }, [dispatch, id]);
 
-  const filters = useSelector((state) => state.campers.filters);
+  const filters = useSelector(selectFilters);
 
   const vehicleDetails = [
     { label: "Form", value: oneCamper.form },

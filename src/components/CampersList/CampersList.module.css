@@ -4,3 +4,13 @@
   width: 888px;
   gap: 32px;
 }
+.btnLoadMore {
+  width: 145px;
+  height: 56px;
+  border-radius: 30px;
+  background-color: transparent;
+  color: #101828;
+  border: 1px solid #dadde1;
+  font-size: 16px;
+  margin-top: 40px;
+}

@@ -5,7 +5,17 @@
   border-radius: 20px;
   padding: 24px;
 }
-
+.name {
+  max-width: 350px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.contPiconsBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
 .image {
   width: 292px;
   height: 320px;

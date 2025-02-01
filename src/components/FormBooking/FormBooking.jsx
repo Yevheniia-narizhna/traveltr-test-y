@@ -1,6 +1,9 @@
 import { ErrorMessage, Form, Field, Formik } from "formik";
 import * as Yup from "yup";
 import s from "./FormBooking.module.css";
+import { toast } from "react-toastify";
+import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
 
 const FormBooking = () => {
   const initialValues = {
@@ -10,8 +13,13 @@ const FormBooking = () => {
     comment: "",
   };
 
-  const onSubmit = (values) => {
+  const onSubmit = (values, { resetForm }) => {
     console.log("Form data", values);
+
+    setTimeout(() => {
+      toast.success("Camper booked successfully!");
+      resetForm(); // Очищення форми після відправки
+    }, 1000);
   };
 
   const validationSchema = Yup.object({
@@ -56,18 +64,23 @@ const FormBooking = () => {
           </div>
 
           <div className={s.form}>
-            <Field
-              type="text"
-              id="bookingDate"
-              name="bookingDate"
-              placeholder="Booking date*"
-              className={s.input}
-            />
-            <ErrorMessage
-              name="bookingDate"
-              component="div"
-              className={s.error}
-            />
+            <Field name="bookingDate">
+              {({ field, form, meta }) => (
+                <div>
+                  <DatePicker
+                    {...field}
+                    selected={field.value ? new Date(field.value) : null}
+                    onChange={(date) => form.setFieldValue("bookingDate", date)}
+                    dateFormat="yyyy-MM-dd"
+                    className={s.input}
+                    placeholderText="Booking date*"
+                  />
+                  {meta.touched && meta.error && (
+                    <div className={s.error}>{meta.error}</div>
+                  )}
+                </div>
+              )}
+            </Field>
           </div>
 
           <div className={s.form}>

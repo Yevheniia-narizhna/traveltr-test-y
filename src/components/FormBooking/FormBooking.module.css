@@ -22,6 +22,7 @@
   padding: 18px;
   border: none;
   background-color: #f7f7f7;
+  outline: none;
 }
 .btnSubmit {
   color: #ffffff;

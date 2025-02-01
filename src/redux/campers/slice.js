@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { fetchCampers, fetchCampersById } from "./operations";
 
 const campersSlice = createSlice({
@@ -22,6 +22,8 @@ const campersSlice = createSlice({
     },
     campers: [],
     oneCamper: null,
+    total: 0,
+    currentPage: 1,
     loading: false,
   },
   reducers: {
@@ -38,31 +40,58 @@ const campersSlice = createSlice({
       }
       console.log("Updated filters:", state.filters);
     },
+    resetCampers(state) {
+      state.campers = [];
+      state.currentPage = 1;
+      state.total = 0;
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCampers.pending, (state) => {
-        state.loading = true;
-      })
+      // .addCase(fetchCampers.pending, (state) => {
+      //   state.loading = true;
+      // })
       .addCase(fetchCampers.fulfilled, (state, action) => {
-        state.campers = action.payload;
-        state.loading = false;
+        const newCampers = action.payload.items.filter(
+          (camper) => !state.campers.some((c) => c.id === camper.id)
+        );
+        state.campers = [...state.campers, ...newCampers]; //  Додаємо тільки унікальні кемпери
+        state.total = action.payload.total;
+        state.currentPage = action.payload.currentPage; //  Оновлюємо на актуальну сторінку
+        // state.loading = false;
       })
-      .addCase(fetchCampers.rejected, (state) => {
-        state.loading = false;
-      })
-      .addCase(fetchCampersById.pending, (state) => {
-        state.loading = true;
-      })
+      // .addCase(fetchCampers.rejected, (state) => {
+      //   state.loading = false;
+      // })
+      // .addCase(fetchCampersById.pending, (state) => {
+      //   state.loading = true;
+      // })
       .addCase(fetchCampersById.fulfilled, (state, action) => {
         state.oneCamper = action.payload;
-        state.loading = false;
+        // state.loading = false;
       })
-      .addCase(fetchCampersById.rejected, (state) => {
-        state.loading = false;
-      });
+      // .addCase(fetchCampersById.rejected, (state) => {
+      //   state.loading = false;
+      // })
+      .addMatcher(
+        isAnyOf(fetchCampers.pending, fetchCampersById.pending),
+        (state) => {
+          state.loading = true;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchCampers.fulfilled,
+          fetchCampersById.fulfilled,
+          fetchCampers.rejected,
+          fetchCampersById.rejected
+        ),
+        (state) => {
+          state.loading = false;
+        }
+      );
   },
 });
 
-export const { setFilter } = campersSlice.actions;
+export const { setFilter, resetCampers } = campersSlice.actions;
 export const campersReducer = campersSlice.reducer;

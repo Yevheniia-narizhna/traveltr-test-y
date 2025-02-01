@@ -1,20 +1,26 @@
 import { useDispatch, useSelector } from "react-redux";
 import s from "./Features.module.css";
-import { setFilter } from "../../redux/campers/slice.js";
+import { resetCampers, setFilter } from "../../redux/campers/slice.js";
 import { fetchCampers } from "../../redux/campers/operations.js";
+import { selectFilters } from "../../redux/campers/selectors.js";
+import { useEffect, useState } from "react";
+import Loader from "../Loader/Loader.jsx";
 
 const Features = () => {
   const dispatch = useDispatch();
-  const filters = useSelector((state) => state.campers.filters);
-  console.log("Filters from Redux:", filters);
+  const filters = useSelector(selectFilters);
+  const total = useSelector((state) => state.campers.total); // Загальна кількість знайдених кемперів
+  const loading = useSelector((state) => state.campers.loading);
+  const [noResults, setNoResults] = useState(false);
 
   const handleFeatureChange = (featureName, featureValue) => {
-    dispatch(
-      setFilter({
-        name: featureName,
-        value: featureValue,
-      })
-    );
+    if (featureName === "transmission") {
+      dispatch(
+        setFilter({ name: featureName, value: featureValue ? "automatic" : "" })
+      );
+    } else {
+      dispatch(setFilter({ name: featureName, value: featureValue }));
+    }
   };
 
   const handleFormChange = (formValue) => {
@@ -28,9 +34,18 @@ const Features = () => {
   };
 
   const searchCamp = () => {
-    console.log("Current filters:", filters);
-    dispatch(fetchCampers());
+    dispatch(resetCampers());
+    const updatedFilters = { ...filters, page: 1, limit: 4 }; // Починаємо з першої сторінки
+    console.log("Applying filters:", updatedFilters);
+    dispatch(fetchCampers(updatedFilters));
   };
+  useEffect(() => {
+    if (!loading && total === 0) {
+      setNoResults(true);
+    } else {
+      setNoResults(false);
+    }
+  }, [total, loading]);
 
   return (
     <div className={s.featureCont}>
@@ -82,6 +97,7 @@ const Features = () => {
               {filter.name === "transmission" ? (
                 <input
                   type="radio"
+                  name="transmission"
                   value="automatic"
                   checked={filters.transmission === "automatic"}
                   onChange={() =>
@@ -130,9 +146,17 @@ const Features = () => {
           ))}
         </div>
       </div>
-      <button className={s.searchButton} onClick={searchCamp}>
-        Search
-      </button>
+      {loading ? (
+        <Loader />
+      ) : (
+        <button className={s.searchButton} onClick={searchCamp}>
+          Search
+        </button>
+      )}
+
+      {noResults && !loading && (
+        <p className={s.noResults}>No campers found for this filter</p>
+      )}
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
 import FilterIcons from "../FilterIcons/FilterIcons";
+import { selectFilters } from "../../redux/campers/selectors";
 
 const Campers = ({
   id,
@@ -16,7 +17,7 @@ const Campers = ({
   reviewsCount,
 }) => {
   console.log(id);
-  const filters = useSelector((state) => state.campers.filters);
+  const filters = useSelector(selectFilters);
 
   const swapLocation = (location) => {
     const parts = location.split(", ");
@@ -94,12 +95,14 @@ const Campers = ({
             {swappedLocation}
           </div>
         </div>
-        <TruncateText text={description} maxWidth={maxWidth} />
-        <FilterIcons filters={filters} limit={4} />
+        <div className={s.contPiconsBtn}>
+          <TruncateText text={description} maxWidth={maxWidth} />
+          <FilterIcons filters={filters} limit={4} />
 
-        <Link to={`/catalog/${id}`}>
-          <button className={s.btnShow}>Show more</button>
-        </Link>
+          <Link to={`/catalog/${id}`}>
+            <button className={s.btnShow}>Show more</button>
+          </Link>
+        </div>
       </div>
     </div>
   );

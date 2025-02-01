@@ -8,6 +8,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  padding-top: 8px;
 }
 .input {
   width: 360px;
@@ -101,4 +102,15 @@
 .searchButton:hover,
 .searchButton:focus {
   background-color: #d84343;
+}
+.noResults {
+  display: flex;
+  position: absolute;
+  margin-left: 800px;
+  margin-top: 100px;
+  background-color: #d84343;
+  border-radius: 10px;
+  padding: 10px;
+  color: #ffffff;
+  font-weight: 600;
 }

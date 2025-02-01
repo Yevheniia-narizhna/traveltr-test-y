@@ -7,12 +7,12 @@ export const campersApi = axios.create({
 
 export const fetchCampers = createAsyncThunk(
   "fetchCampers",
-  async (_, { getState }, thunkApi) => {
+  async ({ page = 1, limit = 4 }, { getState }, thunkApi) => {
     try {
       const { filters } = getState().campers;
       console.log("Current filters before request:", filters);
 
-      const params = {};
+      const params = { page, limit };
 
       if (filters.location) {
         params.location = encodeURIComponent(filters.location.trim());
@@ -42,7 +42,11 @@ export const fetchCampers = createAsyncThunk(
 
       console.log("Fetched campers:", data);
 
-      return data.items;
+      return {
+        items: data.items,
+        total: data.total, // кількість елементів
+        currentPage: page,
+      };
     } catch (error) {
       console.error("Error fetching campers:", error);
       return thunkApi.rejectWithValue(
