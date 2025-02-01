@@ -1,6 +1,11 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { fetchCampers, fetchCampersById } from "./operations";
 
+const loadFavoritesFromLocalStorage = () => {
+  const savedFavorites = localStorage.getItem("favorites");
+  return savedFavorites ? JSON.parse(savedFavorites) : [];
+};
+
 const campersSlice = createSlice({
   name: "campers",
   initialState: {
@@ -21,6 +26,7 @@ const campersSlice = createSlice({
       radio: false,
     },
     campers: [],
+    favorites: loadFavoritesFromLocalStorage(), // Список обраних кемперів
     oneCamper: null,
     total: 0,
     currentPage: 1,
@@ -45,12 +51,19 @@ const campersSlice = createSlice({
       state.currentPage = 1;
       state.total = 0;
     },
+    addToFavorites: (state, action) => {
+      state.favorites.push(action.payload);
+      localStorage.setItem("favorites", JSON.stringify(state.favorites)); // Зберігаємо оновлений список
+    },
+    removeFromFavorites: (state, action) => {
+      state.favorites = state.favorites.filter(
+        (camper) => camper.id !== action.payload
+      );
+      localStorage.setItem("favorites", JSON.stringify(state.favorites)); // Оновлюємо LocalStorage
+    },
   },
   extraReducers: (builder) => {
     builder
-      // .addCase(fetchCampers.pending, (state) => {
-      //   state.loading = true;
-      // })
       .addCase(fetchCampers.fulfilled, (state, action) => {
         const newCampers = action.payload.items.filter(
           (camper) => !state.campers.some((c) => c.id === camper.id)
@@ -58,21 +71,10 @@ const campersSlice = createSlice({
         state.campers = [...state.campers, ...newCampers]; //  Додаємо тільки унікальні кемпери
         state.total = action.payload.total;
         state.currentPage = action.payload.currentPage; //  Оновлюємо на актуальну сторінку
-        // state.loading = false;
       })
-      // .addCase(fetchCampers.rejected, (state) => {
-      //   state.loading = false;
-      // })
-      // .addCase(fetchCampersById.pending, (state) => {
-      //   state.loading = true;
-      // })
       .addCase(fetchCampersById.fulfilled, (state, action) => {
         state.oneCamper = action.payload;
-        // state.loading = false;
       })
-      // .addCase(fetchCampersById.rejected, (state) => {
-      //   state.loading = false;
-      // })
       .addMatcher(
         isAnyOf(fetchCampers.pending, fetchCampersById.pending),
         (state) => {
@@ -93,5 +95,6 @@ const campersSlice = createSlice({
   },
 });
 
-export const { setFilter, resetCampers } = campersSlice.actions;
+export const { setFilter, resetCampers, addToFavorites, removeFromFavorites } =
+  campersSlice.actions;
 export const campersReducer = campersSlice.reducer;

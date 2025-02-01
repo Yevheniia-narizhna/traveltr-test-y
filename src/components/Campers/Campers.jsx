@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import s from "./Campers.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
 import FilterIcons from "../FilterIcons/FilterIcons";
 import { selectFilters } from "../../redux/campers/selectors";
+import { removeFromFavorites, addToFavorites } from "../../redux/campers/slice";
 
 const Campers = ({
   id,
@@ -18,6 +19,30 @@ const Campers = ({
 }) => {
   console.log(id);
   const filters = useSelector(selectFilters);
+  const favorites = useSelector((state) => state.campers.favorites);
+  const dispatch = useDispatch();
+
+  // Перевіряємо, чи кемпер є у списку обраних
+  const isFavorite = favorites.some((camper) => camper.id === id);
+
+  const toggleFavorite = () => {
+    if (isFavorite) {
+      dispatch(removeFromFavorites(id));
+    } else {
+      dispatch(
+        addToFavorites({
+          id,
+          name,
+          price,
+          description,
+          gallery,
+          rating,
+          location,
+          reviewsCount,
+        })
+      );
+    }
+  };
 
   const swapLocation = (location) => {
     const parts = location.split(", ");
@@ -76,7 +101,10 @@ const Campers = ({
           <h2 className={s.name}>Campers {name}</h2>
           <div className={s.miniCont}>
             <p className={s.price}>€{price ? price.toFixed(2) : "0.00"}</p>
-            <svg className={s.iconFav}>
+            <svg
+              className={`${s.iconFav} ${isFavorite ? s.favSelected : ""}`} // Зміна класу для вибраних кемперів
+              onClick={toggleFavorite} // Тепер при натисканні викликається toggleFavorite
+            >
               <use href="sprite.svg#icon-Property-1Default"></use>
             </svg>
           </div>

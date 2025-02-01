@@ -52,6 +52,9 @@
   height: 24px;
   padding-top: 4px;
 }
+.favSelected {
+  fill: #e44848;
+}
 .btnShow {
   width: 166px;
   height: 56px;
