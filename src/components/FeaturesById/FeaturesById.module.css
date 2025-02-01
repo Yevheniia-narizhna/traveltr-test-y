@@ -1,16 +1,30 @@
 .contFeatById {
-  width: 631px;
+  width: 543px;
   display: flex;
   flex-direction: column;
+  background-color: #f7f7f7;
+  padding: 52px 44px;
+  border-radius: 10px;
 }
 .vehicle {
   display: flex;
   flex-direction: column;
   align-items: start;
 }
+.vehicleTitle {
+  display: flex;
+  font-size: 20px;
+  width: 100%;
+  border-bottom: 1px solid #dadde1;
+  align-items: start;
+  padding-bottom: 24px;
+}
 .vehicleValue {
-  width: 631px;
+  width: 527px;
   display: flex;
   justify-content: space-between;
   padding-top: 16px;
+}
+.filterIc {
+  padding-bottom: 100px;
 }

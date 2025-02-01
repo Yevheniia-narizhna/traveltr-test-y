@@ -125,7 +125,9 @@ const Campers = ({
         </div>
         <div className={s.contPiconsBtn}>
           <TruncateText text={description} maxWidth={maxWidth} />
-          <FilterIcons filters={filters} limit={4} />
+          <div className={s.filtIcon}>
+            <FilterIcons filters={filters} limit={4} />
+          </div>
 
           <Link to={`/catalog/${id}`}>
             <button className={s.btnShow}>Show more</button>

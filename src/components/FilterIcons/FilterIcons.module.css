@@ -7,7 +7,7 @@
   flex-wrap: wrap;
   gap: 8px;
   width: 430px;
-  padding-top: 24px;
+  /* padding-top: 24px; */
 }
 .filterBoxF {
   display: flex;

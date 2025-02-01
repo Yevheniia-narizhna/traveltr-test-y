@@ -29,11 +29,11 @@ const FeaturesById = () => {
 
   return (
     <div className={s.contFeatById}>
-      <div>
+      <div className={s.filterIc}>
         <FilterIcons filters={filters} />
       </div>
       <div className={s.vehicle}>
-        <h2>Vehicle details</h2>
+        <h2 className={s.vehicleTitle}>Vehicle details</h2>
         <ul>
           {vehicleDetails.map((detail, index) => (
             <li key={index}>

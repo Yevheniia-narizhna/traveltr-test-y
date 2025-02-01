@@ -33,8 +33,10 @@ const FormBooking = () => {
 
   return (
     <div className={s.contBooking}>
-      <h2>Book your campervan now</h2>
-      <p>Stay connected! We are always ready to help you.</p>
+      <h2 className={s.bookTitle}>Book your campervan now</h2>
+      <p className={s.bookText}>
+        Stay connected! We are always ready to help you.
+      </p>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

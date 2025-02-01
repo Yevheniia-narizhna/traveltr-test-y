@@ -55,6 +55,9 @@
 .favSelected {
   fill: #e44848;
 }
+.filtIcon {
+  padding-top: 24px;
+}
 .btnShow {
   width: 166px;
   height: 56px;

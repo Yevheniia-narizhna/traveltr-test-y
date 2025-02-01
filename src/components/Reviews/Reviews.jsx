@@ -10,7 +10,7 @@ const Reviews = () => {
   }
   return (
     <div className={s.contReviews}>
-      <ul>
+      <ul className={s.contList}>
         {oneCamper.reviews.map((review, index) => (
           <li key={index}>
             <div className={s.titles}>
@@ -22,7 +22,7 @@ const Reviews = () => {
                 </div>
               </div>
             </div>
-            <p>{review.comment}</p>
+            <p className={s.textRew}>{review.comment}</p>
           </li>
         ))}
       </ul>

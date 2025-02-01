@@ -2,8 +2,16 @@
   width: 631px;
   padding-top: 54px;
 }
+.contList {
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
 .titles {
   display: flex;
+  gap: 16px;
+  align-items: center;
+  padding-bottom: 16px;
 }
 .nameStar {
   display: flex;
@@ -20,4 +28,7 @@
   color: #e44848;
   font-size: 24px;
   font-weight: 600;
+}
+.textRew {
+  text-align: left;
 }
