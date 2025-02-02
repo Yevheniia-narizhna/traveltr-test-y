@@ -7,6 +7,15 @@
   border: 1px solid #dadde1;
   border-radius: 10px;
   text-align: left;
+  animation: ani 1.5s forwards;
+}
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .bookTitle {
   font-size: 20px;
@@ -28,7 +37,7 @@
 }
 .input {
   border-radius: 12px;
-  width: 491px;
+  width: 509px;
   padding-left: 18px;
   height: 60px;
   border: none;
@@ -50,4 +59,8 @@
   line-height: 24px;
   margin: 0 auto;
   margin-top: 8px;
+}
+.btnSubmit:hover,
+.btnSubmit:focus {
+  background-color: #d84343;
 }

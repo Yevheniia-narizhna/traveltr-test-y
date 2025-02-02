@@ -4,7 +4,6 @@ import { resetCampers, setFilter } from "../../redux/campers/slice.js";
 import { fetchCampers } from "../../redux/campers/operations.js";
 import { selectFilters } from "../../redux/campers/selectors.js";
 import { useEffect, useState } from "react";
-import Loader from "../Loader/Loader.jsx";
 
 const Features = () => {
   const dispatch = useDispatch();
@@ -146,13 +145,10 @@ const Features = () => {
           ))}
         </div>
       </div>
-      {loading ? (
-        <Loader />
-      ) : (
-        <button className={s.searchButton} onClick={searchCamp}>
-          Search
-        </button>
-      )}
+
+      <button className={s.searchButton} onClick={searchCamp}>
+        Search
+      </button>
 
       {noResults && !loading && (
         <p className={s.noResults}>No campers found for this filter</p>

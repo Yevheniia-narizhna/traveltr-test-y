@@ -17,8 +17,15 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  /* min-width: 320px;
-  min-height: 100vh; */
+  animation: ani 1.5s forwards;
+}
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 h1 {
@@ -56,4 +63,8 @@ button {
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
+}
+button:hover,
+button:focus {
+  transition: background-color 0.25s;
 }

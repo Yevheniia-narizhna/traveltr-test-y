@@ -51,7 +51,7 @@ const FormBooking = () => {
               placeholder="Name*"
               className={s.input}
             />
-            <ErrorMessage name="name" component="div" className={s.error} />
+            <ErrorMessage name="name" component="div" />
           </div>
 
           <div className={s.form}>
@@ -62,7 +62,7 @@ const FormBooking = () => {
               placeholder="Email*"
               className={s.input}
             />
-            <ErrorMessage name="email" component="div" className={s.error} />
+            <ErrorMessage name="email" component="div" />
           </div>
 
           <div className={s.form}>
@@ -94,7 +94,7 @@ const FormBooking = () => {
               className={s.input}
               style={{ height: "108px" }}
             />
-            <ErrorMessage name="comment" component="div" className={s.error} />
+            <ErrorMessage name="comment" component="div" />
           </div>
 
           <button type="submit" className={s.btnSubmit}>

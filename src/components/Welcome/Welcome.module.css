@@ -2,10 +2,17 @@
   min-height: 696px;
   background-image: url(/src/img/Picture.png);
   background-repeat: no-repeat;
-  /* background-attachment: fixed; */
-  /* background-size: cover; */
   background-position: center;
   margin-top: 72px;
+  animation: ani 1.5s forwards;
+}
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .contText {
   display: flex;

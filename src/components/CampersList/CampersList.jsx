@@ -25,24 +25,29 @@ const CampersList = () => {
 
   return (
     <div>
-      <div>
-        <ul className={s.campertlist}>
-          {campers.map((camper) => (
-            <li key={camper.id}>
-              <Campers
-                id={camper.id}
-                name={camper.name}
-                price={camper.price}
-                gallery={camper.gallery}
-                rating={camper.rating}
-                description={camper.description}
-                location={camper.location}
-                reviewsCount={camper.reviews ? camper.reviews.length : 0}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
+      {loading && campers.length === 0 ? (
+        <Loader />
+      ) : (
+        <div>
+          <ul className={s.campertlist}>
+            {campers.map((camper) => (
+              <li key={camper.id}>
+                <Campers
+                  id={camper.id}
+                  name={camper.name}
+                  price={camper.price}
+                  gallery={camper.gallery}
+                  rating={camper.rating}
+                  description={camper.description}
+                  location={camper.location}
+                  reviewsCount={camper.reviews ? camper.reviews.length : 0}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {campers.length < total &&
         (loading ? (
           <Loader />

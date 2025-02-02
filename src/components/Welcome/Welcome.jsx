@@ -5,7 +5,7 @@ const Welcome = () => {
   const navCatalog = useNavigate();
 
   const toCatalog = () => {
-    navCatalog("/campers");
+    navCatalog("/catalog");
   };
 
   return (

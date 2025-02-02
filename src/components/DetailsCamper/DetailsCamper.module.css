@@ -1,5 +1,14 @@
 .contDetail {
   text-align: left;
+  animation: ani 1.5s forwards;
+}
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .icon {
   width: 16px;
@@ -69,6 +78,15 @@
   background: #fff;
   padding: 4px;
   border-radius: 10px;
+  animation: ani 1.5s forwards;
+}
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .modalImage {

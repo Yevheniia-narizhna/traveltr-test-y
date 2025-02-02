@@ -39,7 +39,7 @@ const FeaturesById = () => {
             <li key={index}>
               <div className={s.vehicleValue}>
                 <p>{detail.label}</p>
-                <p>{detail.value}</p>
+                <p>{detail.value.replace(/(\d+)([a-zA-Z]+)/, "$1 $2")}</p>
               </div>
             </li>
           ))}
