@@ -25,15 +25,17 @@
 .form {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 .input {
   border-radius: 12px;
   width: 491px;
-  padding: 18px;
+  padding-left: 18px;
+  height: 60px;
   border: none;
   background-color: #f7f7f7;
   outline: none;
+  font-family: Inter, sans-serif;
+  line-height: 60px;
 }
 .btnSubmit {
   color: #ffffff;

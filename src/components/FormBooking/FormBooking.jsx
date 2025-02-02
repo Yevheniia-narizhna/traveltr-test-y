@@ -92,6 +92,7 @@ const FormBooking = () => {
               name="comment"
               placeholder="Comment"
               className={s.input}
+              style={{ height: "108px" }}
             />
             <ErrorMessage name="comment" component="div" className={s.error} />
           </div>

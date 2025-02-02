@@ -62,14 +62,16 @@ const DetailsCamper = ({ reviewsCount }) => {
     <div className={s.contDetail}>
       <div>
         <div className={s.contNamePrice}>
-          <h2 className={s.name}>Campers {oneCamper.name}</h2>
+          <h2 className={s.name}>{oneCamper.name}</h2>
         </div>
         <div className={s.ratingLocation}>
           <div className={s.rating}>
             <svg className={s.iconStar}>
               <use href="/sprite.svg#icon-Property-1Pressed"></use>
             </svg>
-            {oneCamper.rating} ({reviewsCount} Reviews)
+            <p>
+              {oneCamper.rating} ({reviewsCount} Reviews)
+            </p>
           </div>
           <div className={s.location}>
             <svg className={s.icon}>
@@ -77,12 +79,13 @@ const DetailsCamper = ({ reviewsCount }) => {
             </svg>
             {swappedLocation}
           </div>
-          <div className={s.miniCont}>
-            <p className={s.price}>
-              €{oneCamper.price ? oneCamper.price.toFixed(2) : "0.00"}
-            </p>
-          </div>
         </div>
+        <div className={s.miniCont}>
+          <h3 className={s.price}>
+            €{oneCamper.price ? oneCamper.price.toFixed(2) : "0.00"}
+          </h3>
+        </div>
+
         <div>
           <div>
             <div className={s.galleryContainer}>

@@ -57,6 +57,7 @@
 }
 .filtIcon {
   padding-top: 24px;
+  width: 430px;
 }
 .btnShow {
   width: 166px;
@@ -78,6 +79,7 @@
   width: 18px;
   height: 18px;
   fill: #ffc531;
+  padding-bottom: 4px;
 }
 .rating,
 .location {

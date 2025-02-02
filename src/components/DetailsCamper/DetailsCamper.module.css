@@ -1,21 +1,45 @@
-/* .contDetail {
-  margin-top: 120px;
-} */
+.contDetail {
+  text-align: left;
+}
 .icon {
   width: 16px;
   height: 16px;
   padding-right: 4px;
 }
+.name {
+  padding-bottom: 8px;
+}
+.ratingLocation {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 16px;
+}
+.rating {
+  display: flex;
+  align-items: center;
+}
+.rating p {
+  border-bottom: 1px solid #101828;
+  padding-left: 4px;
+  color: #101828;
+}
+.price {
+  font-size: 24px;
+  padding-bottom: 28px;
+}
 .iconStar {
   width: 18px;
   height: 18px;
   fill: #ffc531;
+  padding-bottom: 4px;
 }
 .galleryContainer {
   display: flex;
   width: 1312px;
   justify-content: center;
   gap: 48px;
+  padding-bottom: 28px;
 }
 
 .image {
