@@ -1,11 +1,6 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { fetchCampers, fetchCampersById } from "./operations";
 
-const loadFavoritesFromLocalStorage = () => {
-  const savedFavorites = localStorage.getItem("favorites");
-  return savedFavorites ? JSON.parse(savedFavorites) : [];
-};
-
 const campersSlice = createSlice({
   name: "campers",
   initialState: {
@@ -26,7 +21,6 @@ const campersSlice = createSlice({
       radio: false,
     },
     campers: [],
-    favorites: loadFavoritesFromLocalStorage(), // Список обраних кемперів
     oneCamper: null,
     total: 0,
     currentPage: 1,
@@ -50,16 +44,6 @@ const campersSlice = createSlice({
       state.campers = [];
       state.currentPage = 1;
       state.total = 0;
-    },
-    addToFavorites: (state, action) => {
-      state.favorites.push(action.payload);
-      localStorage.setItem("favorites", JSON.stringify(state.favorites)); // Зберігаємо оновлений список
-    },
-    removeFromFavorites: (state, action) => {
-      state.favorites = state.favorites.filter(
-        (camper) => camper.id !== action.payload
-      );
-      localStorage.setItem("favorites", JSON.stringify(state.favorites)); // Оновлюємо LocalStorage
     },
   },
   extraReducers: (builder) => {
@@ -95,6 +79,6 @@ const campersSlice = createSlice({
   },
 });
 
-export const { setFilter, resetCampers, addToFavorites, removeFromFavorites } =
+export const { setFilter, resetCampers } =
   campersSlice.actions;
 export const campersReducer = campersSlice.reducer;

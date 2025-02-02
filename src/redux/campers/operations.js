@@ -10,7 +10,7 @@ export const fetchCampers = createAsyncThunk(
   async ({ page = 1, limit = 4 }, { getState }, thunkApi) => {
     try {
       const { filters } = getState().campers;
-      console.log("Current filters before request:", filters);
+      // console.log("Current filters before request:", filters);
 
       const params = { page, limit };
 
@@ -36,11 +36,11 @@ export const fetchCampers = createAsyncThunk(
         params.TV = filters.TV;
       }
 
-      console.log("Final request params:", params);
+      // console.log("Final request params:", params);
 
       const { data } = await campersApi.get("/campers", { params });
 
-      console.log("Fetched campers:", data);
+      // console.log("Fetched campers:", data);
 
       return {
         items: data.items,

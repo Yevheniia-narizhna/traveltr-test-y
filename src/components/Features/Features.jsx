@@ -11,6 +11,7 @@ const Features = () => {
   const total = useSelector((state) => state.campers.total); // Загальна кількість знайдених кемперів
   const loading = useSelector((state) => state.campers.loading);
   const [noResults, setNoResults] = useState(false);
+  const [localLocation, setLocalLocation] = useState(filters.location || "");
 
   const handleFeatureChange = (featureName, featureValue) => {
     if (featureName === "transmission") {
@@ -27,17 +28,17 @@ const Features = () => {
   };
 
   const handleLocationChange = (e) => {
-    const value = e.target.value;
-    console.log("Location input changed:", value);
-    dispatch(setFilter({ name: "location", value }));
+    setLocalLocation(e.target.value); // Оновлюємо локально
   };
 
   const searchCamp = () => {
-    dispatch(resetCampers());
-    const updatedFilters = { ...filters, page: 1, limit: 4 }; // Починаємо з першої сторінки
-    console.log("Applying filters:", updatedFilters);
-    dispatch(fetchCampers(updatedFilters));
+    dispatch(resetCampers()); // Очищення списку кемперів перед новим запитом
+    dispatch(setFilter({ name: "location", value: localLocation })); // Тільки тут оновлюємо Redux
+    dispatch(
+      fetchCampers({ ...filters, location: localLocation, page: 1, limit: 4 })
+    ); // Виконуємо пошук
   };
+
   useEffect(() => {
     if (!loading && total === 0) {
       setNoResults(true);
@@ -58,7 +59,7 @@ const Features = () => {
             type="text"
             placeholder="City"
             className={s.input}
-            value={filters.location || ""}
+            value={localLocation}
             onChange={handleLocationChange}
           />
         </div>
@@ -158,114 +159,3 @@ const Features = () => {
 };
 
 export default Features;
-
-{
-  /* //  return (
-//     <div>
-//       <div>
-//         <label className={s.label}>Location</label>
-//         <div className={s.inputWrapp}>
-//           <svg className={s.icon}>
-//             <use href="sprite.svg#icon-Map"></use>
-//           </svg>
-//           <input
-//             type="text"
-//             placeholder="City"
-//             className={s.input}
-//             value={filters.location || ""}
-//             onChange={handleLocationChange}
-//           />
-//         </div>
-//       </div>
-//       <div>
-//         <p>Filters</p>
-//         <h2>Vehicle equipment</h2>
-//         <div>
-//           <label>
-//             <input
-//               type="checkbox"
-//               name="AC"
-//               checked={filters.AC || false}
-//               onChange={(e) => handleFeatureChange("AC", e.target.checked)}
-//             />
-//             AC
-//           </label>
-//           <label>
-//             <input
-//               type="radio"
-//               name="transmission"
-//               value="automatic"
-//               checked={filters.transmission === "automatic"}
-//               onChange={() => handleFeatureChange("transmission", "automatic")}
-//             />
-//             Automatic
-//           </label>
-//           <label>
-//             <input
-//               type="checkbox"
-//               name="kitchen"
-//               checked={filters.kitchen || false}
-//               onChange={(e) => handleFeatureChange("kitchen", e.target.checked)}
-//             />
-//             Kitchen
-//           </label>
-//           <label>
-//             <input
-//               type="checkbox"
-//               name="TV"
-//               checked={filters.TV || false}
-//               onChange={(e) => handleFeatureChange("TV", e.target.checked)}
-//             />
-//             TV
-//           </label>
-//           <label>
-//             <input
-//               type="checkbox"
-//               name="bathroom"
-//               checked={filters.bathroom || false}
-//               onChange={(e) =>
-//                 handleFeatureChange("bathroom", e.target.checked)
-//               }
-//             />
-//             Bathroom
-//           </label>
-//         </div>
-//       </div>
-//       <div>
-//         <h2>Vehicle type</h2>
-//         <label>
-//           <input
-//             type="radio"
-//             name="form"
-//             value="van"
-//             checked={filters.form === "van"}
-//             onChange={(e) => handleFormChange(e.target.value)}
-//           />
-//           Van
-//         </label>
-//         <label>
-//           <input
-//             type="radio"
-//             name="form"
-//             value="fullyIntegrated"
-//             checked={filters.form === "fullyIntegrated"}
-//             onChange={(e) => handleFormChange(e.target.value)}
-//           />
-//           Fully Integrated
-//         </label>
-//         <label>
-//           <input
-//             type="radio"
-//             name="form"
-//             value="alcove"
-//             checked={filters.form === "alcove"}
-//             onChange={(e) => handleFormChange(e.target.value)}
-//           />
-//           Alcove
-//         </label>
-//       </div>
-//       <button onClick={searchCamp}>Search</button>
-//     </div>
-//   );
-// }; */
-}

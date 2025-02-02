@@ -5,7 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import FilterIcons from "../FilterIcons/FilterIcons";
 import { selectFilters } from "../../redux/campers/selectors";
-import { removeFromFavorites, addToFavorites } from "../../redux/campers/slice";
+
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from "../../redux/favorites/slice";
 
 const Campers = ({
   id,
@@ -19,7 +23,7 @@ const Campers = ({
 }) => {
   console.log(id);
   const filters = useSelector(selectFilters);
-  const favorites = useSelector((state) => state.campers.favorites);
+  const favorites = useSelector((state) => state.favorites.list);
   const dispatch = useDispatch();
 
   // Перевіряємо, чи кемпер є у списку обраних

@@ -21,7 +21,7 @@ const CampersList = () => {
     dispatch(fetchCampers({ page: currentPage + 1, limit: 4, filters }));
   };
 
-  console.log("Campers from API:", campers);
+  // console.log("Campers from API:", campers);
 
   return (
     <div>

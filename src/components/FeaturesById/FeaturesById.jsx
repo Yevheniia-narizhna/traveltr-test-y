@@ -9,7 +9,7 @@ import { selectFilters } from "../../redux/campers/selectors.js";
 const FeaturesById = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
   const oneCamper = useSelector((state) => state.campers.oneCamper);
 
   useEffect(() => {

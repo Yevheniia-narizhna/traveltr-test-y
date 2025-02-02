@@ -18,7 +18,7 @@ const DetailsCamper = ({ reviewsCount }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const loc = useLocation();
-  console.log(id);
+  // console.log(id);
 
   const oneCamper = useSelector((state) => state.campers.oneCamper);
 
