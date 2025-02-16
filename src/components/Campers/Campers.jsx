@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 import s from "./Campers.module.css";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -21,7 +21,7 @@ const Campers = ({
   location,
   reviewsCount,
 }) => {
-  console.log(id);
+  // console.log(id);
   const filters = useSelector(selectFilters);
   const favorites = useSelector((state) => state.favorites.list);
   const dispatch = useDispatch();
@@ -62,10 +62,10 @@ const Campers = ({
 
   const TruncateText = ({ text, maxWidth }) => {
     const containerRef = useRef(null);
-    const [truncated, setTruncated] = useState(text);
 
-    useEffect(() => {
-      if (!containerRef.current) return;
+    // 🟢 Використовуємо useMemo, щоб уникнути повторних ререндерів
+    const truncated = useMemo(() => {
+      if (!containerRef.current) return text;
 
       const context = document.createElement("canvas").getContext("2d");
       context.font = getComputedStyle(containerRef.current).font;
@@ -81,8 +81,8 @@ const Campers = ({
         result += " " + words[i];
       }
 
-      setTruncated(result + "...");
-    }, [text, maxWidth]);
+      return result + "...";
+    }, [text, maxWidth]); // 🔹 Тепер текст не змінюється при натисканні "Обрати"
 
     return (
       <p ref={containerRef} style={{ maxWidth, overflow: "hidden" }}>
@@ -105,12 +105,14 @@ const Campers = ({
           <h2 className={s.name}>Campers {name}</h2>
           <div className={s.miniCont}>
             <p className={s.price}>€{price ? price.toFixed(2) : "0.00"}</p>
-            <svg
-              className={`${s.iconFav} ${isFavorite ? s.favSelected : ""}`} // Зміна класу для вибраних кемперів
-              onClick={toggleFavorite} // Тепер при натисканні викликається toggleFavorite
-            >
-              <use href="sprite.svg#icon-Property-1Default"></use>
-            </svg>
+            <button className={s.btnFav}>
+              <svg
+                className={`${s.iconFav} ${isFavorite ? s.favSelected : ""}`} // Зміна класу для вибраних кемперів
+                onClick={toggleFavorite} // Тепер при натисканні викликається toggleFavorite
+              >
+                <use href="sprite.svg#icon-Property-1Default"></use>
+              </svg>
+            </button>
           </div>
         </div>
         <div className={s.ratingLocation}>

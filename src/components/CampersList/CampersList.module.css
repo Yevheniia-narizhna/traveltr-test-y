@@ -3,7 +3,7 @@
   flex-direction: column;
   width: 888px;
   gap: 32px;
- animation: ani 1.5s forwards;
+  animation: ani 1.5s forwards;
 }
 @keyframes ani {
   0% {
@@ -25,5 +25,15 @@
 }
 .btnLoadMore:hover,
 .btnLoadMore:focus {
+  border: 1px solid #d84343;
+}
+.toggleButton {
+  padding: 4px;
+  margin-bottom: 4px;
+  border-radius: 30px;
+  border: 1px solid #dadde1;
+  background-color: transparent;
+}
+.toggleButton:hover {
   border: 1px solid #d84343;
 }

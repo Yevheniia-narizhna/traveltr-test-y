@@ -56,6 +56,10 @@
   display: flex;
   gap: 12px;
 }
+.btnFav {
+  border: none;
+  background-color: transparent;
+}
 .iconFav {
   width: 26px;
   height: 24px;
@@ -80,7 +84,7 @@
 }
 .btnShow:hover,
 .btnShow:focus {
-  background-color: 1px solid #d84343;
+  background-color: #d84343;
 }
 .ratingLocation {
   align-items: center;

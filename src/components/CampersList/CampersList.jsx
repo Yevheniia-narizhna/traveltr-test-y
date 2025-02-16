@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCampers } from "../../redux/campers/operations";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Campers from "../Campers/Campers";
 import s from "./CampersList.module.css";
 import { resetCampers } from "../../redux/campers/slice";
@@ -10,52 +10,55 @@ const CampersList = () => {
   const { campers, total, currentPage, loading, filters } = useSelector(
     (state) => state.campers
   );
+
+  const favorites = useSelector((state) => state.favorites.list);
   const dispatch = useDispatch();
 
+  const [showFavorites, setShowFavorites] = useState(false);
+
   useEffect(() => {
-    dispatch(resetCampers()); // Скидаємо стан при першому завантаженні
-    dispatch(fetchCampers({ page: 1, limit: 4 }));
-  }, [dispatch]);
+    if (!showFavorites) {
+      dispatch(resetCampers()); // Скидаємо стан при перемиканні на "всі кемпери"
+      dispatch(fetchCampers({ page: 1, limit: 4 }));
+    }
+  }, [dispatch, showFavorites]);
 
   const handleLoadMore = () => {
     dispatch(fetchCampers({ page: currentPage + 1, limit: 4, filters }));
   };
 
-  // console.log("Campers from API:", campers);
+  const displayedCampers = showFavorites ? favorites : campers;
 
   return (
     <div>
-      {loading && campers.length === 0 ? (
+      <button
+        className={s.toggleButton}
+        onClick={() => setShowFavorites(!showFavorites)}
+      >
+        {showFavorites ? "Show All Campers" : "Show Favorites"}
+      </button>
+
+      {loading && displayedCampers.length === 0 ? (
         <Loader />
       ) : (
-        <div>
-          <ul className={s.campertlist}>
-            {campers.map((camper) => (
-              <li key={camper.id}>
-                <Campers
-                  id={camper.id}
-                  name={camper.name}
-                  price={camper.price}
-                  gallery={camper.gallery}
-                  rating={camper.rating}
-                  description={camper.description}
-                  location={camper.location}
-                  reviewsCount={camper.reviews ? camper.reviews.length : 0}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul className={s.campertlist}>
+          {displayedCampers.map((camper) => (
+            <li key={camper.id}>
+              <Campers {...camper} />
+            </li>
+          ))}
+        </ul>
       )}
 
-      {campers.length < total &&
-        (loading ? (
-          <Loader />
-        ) : (
-          <button className={s.btnLoadMore} onClick={handleLoadMore}>
-            Load More
-          </button>
-        ))}
+      {!showFavorites && campers.length < total && !loading && (
+        <button className={s.btnLoadMore} onClick={handleLoadMore}>
+          Load More
+        </button>
+      )}
+
+      {showFavorites && favorites.length === 0 && (
+        <p>No favorite campers yet.</p>
+      )}
     </div>
   );
 };
