@@ -83,10 +83,6 @@
 .filterBox.selected {
   border-color: #d84343;
 }
-.filterBox:hover,
-.filterBox:focus {
-  border-color: #d84343;
-}
 
 .equipmentTitle,
 .typeTitle {

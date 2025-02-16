@@ -2,49 +2,105 @@ import { useDispatch, useSelector } from "react-redux";
 import s from "./Features.module.css";
 import { resetCampers, setFilter } from "../../redux/campers/slice.js";
 import { fetchCampers } from "../../redux/campers/operations.js";
-import { selectFilters } from "../../redux/campers/selectors.js";
+// import { selectFilters } from "../../redux/campers/selectors.js";
 import { useEffect, useState } from "react";
+
+// const Features = () => {
+//   const dispatch = useDispatch();
+//   const filters = useSelector(selectFilters);
+//   const total = useSelector((state) => state.campers.total); // Загальна кількість знайдених кемперів
+//   const loading = useSelector((state) => state.campers.loading);
+//   const [noResults, setNoResults] = useState(false);
+//   const [localLocation, setLocalLocation] = useState(filters.location || "");
+
+//   const handleFeatureChange = (featureName, featureValue) => {
+//     if (featureName === "transmission") {
+//       dispatch(
+//         setFilter({ name: featureName, value: featureValue ? "automatic" : "" })
+//       );
+//     } else {
+//       dispatch(setFilter({ name: featureName, value: featureValue }));
+//     }
+//   };
+
+//   const handleFormChange = (formValue) => {
+//     dispatch(setFilter({ name: "form", value: formValue }));
+//   };
+
+//   const handleLocationChange = (e) => {
+//     setLocalLocation(e.target.value); // Оновлюємо локально
+//   };
+
+//   const searchCamp = () => {
+//     dispatch(resetCampers()); // Очищення списку кемперів перед новим запитом
+//     dispatch(setFilter({ name: "location", value: localLocation })); // Тільки тут оновлюємо Redux
+//     dispatch(
+//       fetchCampers({ ...filters, location: localLocation, page: 1, limit: 4 })
+//     ); // Виконуємо пошук
+//   };
+
+//   useEffect(() => {
+//     if (!loading && total === 0) {
+//       setNoResults(true);
+//     } else {
+//       setNoResults(false);
+//     }
+//   }, [total, loading]);
 
 const Features = () => {
   const dispatch = useDispatch();
-  const filters = useSelector(selectFilters);
-  const total = useSelector((state) => state.campers.total); // Загальна кількість знайдених кемперів
+  const filters = useSelector((state) => state.campers.filters);
+  const total = useSelector((state) => state.campers.total);
   const loading = useSelector((state) => state.campers.loading);
-  const [noResults, setNoResults] = useState(false);
-  const [localLocation, setLocalLocation] = useState(filters.location || "");
 
+  const [noResults, setNoResults] = useState(false);
+  const [localFilters, setLocalFilters] = useState(filters); // Локальне збереження фільтрів
+
+  // Оновлюємо локальні фільтри після зміни Redux-стану (щоб не скидалося)
+  useEffect(() => {
+    setLocalFilters(filters);
+  }, [filters]);
+
+  // Оновлення локального стану без впливу на Redux
   const handleFeatureChange = (featureName, featureValue) => {
-    if (featureName === "transmission") {
-      dispatch(
-        setFilter({ name: featureName, value: featureValue ? "automatic" : "" })
-      );
-    } else {
-      dispatch(setFilter({ name: featureName, value: featureValue }));
-    }
+    setLocalFilters((prev) => ({
+      ...prev,
+      [featureName]:
+        featureName === "transmission"
+          ? featureValue
+            ? "automatic"
+            : ""
+          : featureValue,
+    }));
   };
 
   const handleFormChange = (formValue) => {
-    dispatch(setFilter({ name: "form", value: formValue }));
+    setLocalFilters((prev) => ({
+      ...prev,
+      form: formValue,
+    }));
   };
 
   const handleLocationChange = (e) => {
-    setLocalLocation(e.target.value); // Оновлюємо локально
+    setLocalFilters((prev) => ({
+      ...prev,
+      location: e.target.value,
+    }));
   };
 
+  // Застосування фільтрів після натискання кнопки
   const searchCamp = () => {
     dispatch(resetCampers()); // Очищення списку кемперів перед новим запитом
-    dispatch(setFilter({ name: "location", value: localLocation })); // Тільки тут оновлюємо Redux
-    dispatch(
-      fetchCampers({ ...filters, location: localLocation, page: 1, limit: 4 })
-    ); // Виконуємо пошук
+
+    Object.entries(localFilters).forEach(([name, value]) => {
+      dispatch(setFilter({ name, value }));
+    });
+
+    dispatch(fetchCampers({ ...localFilters, page: 1, limit: 4 })); // Виконання запиту
   };
 
   useEffect(() => {
-    if (!loading && total === 0) {
-      setNoResults(true);
-    } else {
-      setNoResults(false);
-    }
+    setNoResults(!loading && total === 0);
   }, [total, loading]);
 
   return (
@@ -59,7 +115,7 @@ const Features = () => {
             type="text"
             placeholder="City"
             className={s.input}
-            value={localLocation}
+            value={localFilters.location || ""}
             onChange={handleLocationChange}
           />
         </div>
@@ -83,7 +139,7 @@ const Features = () => {
             <div
               key={filter.name}
               className={`${s.filterBox} ${
-                filters[filter.name] ? s.selected : ""
+                localFilters[filter.name] ? s.selected : ""
               }`}
               onClick={() =>
                 handleFeatureChange(filter.name, !filters[filter.name])
@@ -134,7 +190,7 @@ const Features = () => {
             <div
               key={type.value}
               className={`${s.filterBox} ${
-                filters.form === type.value ? s.selected : ""
+                localFilters.form === type.value ? s.selected : ""
               }`}
               onClick={() => handleFormChange(type.value)}
             >
