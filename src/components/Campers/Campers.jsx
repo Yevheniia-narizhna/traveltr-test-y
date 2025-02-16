@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import s from "./Campers.module.css";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -62,10 +62,11 @@ const Campers = ({
 
   const TruncateText = ({ text, maxWidth }) => {
     const containerRef = useRef(null);
+    const [truncated, setTruncated] = useState(text);
 
-    // 🟢 Використовуємо useMemo, щоб уникнути повторних ререндерів
-    const truncated = useMemo(() => {
-      if (!containerRef.current) return text;
+    // Використовуємо useLayoutEffect замість useEffect, щоб обчислення відбулося після рендеру
+    useLayoutEffect(() => {
+      if (!containerRef.current) return;
 
       const context = document.createElement("canvas").getContext("2d");
       context.font = getComputedStyle(containerRef.current).font;
@@ -73,16 +74,19 @@ const Campers = ({
       let words = text.split(" ");
       let result = words[0];
 
+      // Перевіряємо, скільки слів вміщується в maxWidth
       for (let i = 1; i < words.length; i++) {
         if (
           context.measureText(result + " " + words[i] + "...").width > maxWidth
-        )
+        ) {
           break;
+        }
         result += " " + words[i];
       }
 
-      return result + "...";
-    }, [text, maxWidth]); // 🔹 Тепер текст не змінюється при натисканні "Обрати"
+      // Обрізаємо текст і додаємо '...'
+      setTruncated(result + "...");
+    }, [text, maxWidth]);
 
     return (
       <p ref={containerRef} style={{ maxWidth, overflow: "hidden" }}>
